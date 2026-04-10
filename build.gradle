@@ -2,6 +2,15 @@ plugins {
     id 'java'
 }
 
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+}
+
 sourceSets {
     main {
         java {
