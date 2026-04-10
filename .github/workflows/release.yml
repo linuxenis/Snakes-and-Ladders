@@ -1,0 +1,41 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build JAR
+        run: ./gradlew jar
+
+      - name: Package into zip
+        run: |
+          mkdir release
+          cp build/libs/SnakesAndLadders.jar release/
+          cp jsonlenta.json release/
+          cat > release/run.bat << 'EOF'
+          @echo off
+          java -jar SnakesAndLadders.jar
+          pause
+          EOF
+          zip -r SnakesAndLadders.zip release/
+
+      - name: Upload Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: SnakesAndLadders.zip
