@@ -20,8 +20,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
+
       - name: Build JAR
-        run: ./gradlew jar
+        run: gradle jar
 
       - name: Package into zip
         run: |
