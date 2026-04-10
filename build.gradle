@@ -21,6 +21,7 @@ sourceSets {
 
 jar {
     archiveFileName = 'SnakesAndLadders.jar'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes 'Main-Class': 'Main'
     }
@@ -30,3 +31,5 @@ jar {
         }
     }
 }
+
+
